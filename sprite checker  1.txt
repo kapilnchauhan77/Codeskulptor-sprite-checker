@@ -1,0 +1,67 @@
+import simplegui
+x=55
+y=47
+l=False
+r=False
+u=False
+d=False
+shift=False
+x1=55
+y1=55
+message = simplegui.load_image("D:/Document/Goku.png")
+def ku(k):
+    global l,r,d,u,shift
+    if simplegui.KEY_MAP['left']==k:
+        l=False
+        r=False
+    if simplegui.KEY_MAP['right']==k:
+        r=False
+        l=False
+    if simplegui.KEY_MAP['up']==k:
+        u=False
+        d=False
+    if simplegui.KEY_MAP['down']==k:
+        u=False
+        d=False
+    if simplegui.KEY_MAP['a']==k:
+        shift=False
+def kd(k):
+    global l,r,u,d,shift
+    if simplegui.KEY_MAP['left']==k:
+        l=True
+        r=False
+    if simplegui.KEY_MAP['right']==k:
+        r=True
+        l=False
+    if simplegui.KEY_MAP['up']==k:
+        u=True
+        d=False
+    if simplegui.KEY_MAP['down']==k:
+        u=False
+        d=True
+    if simplegui.KEY_MAP['a']==k:
+        shift=True
+def draw(canvas):
+    global x,y,x1,y1
+    canvas.draw_image(message, [x,y],[x1,y1],[100,150],[200,300])
+    if l:
+        x=x-3
+    if r:
+        x=x+3
+    if u:
+        y=y-3
+    if d:
+        y+=3
+    if shift and u:
+        y1-=3
+        x1=x1-3
+    if shift and d:
+        y1+=3
+        x1+=3
+        
+    print x,y,x1,y1
+frame = simplegui.create_frame("Home", 200, 300,0)
+frame.set_draw_handler(draw)
+frame.set_keydown_handler(kd)
+frame.set_keyup_handler(ku)
+frame.start()
